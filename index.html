@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestión de Pruebas de Software · Proyecto BI Cultural</title>
+<meta name="description" content="Línea de tiempo de la función de pruebas de software del proyecto BI Cultural (Bodega de Datos), 2019–2024.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --azul:#1B3A5C; --azul-osc:#16324F; --azul-med:#2E6DA4; --oro:#B8860B;
+  --tinta:#16202B; --texto:#2B3742; --gris:#5A6470; --gris-cl:#8A94A0;
+  --fondo:#F5F7F9; --sup:#FFFFFF; --linea:#DDE3E9; --linea-cl:#E8EDF1;
+  --serif:Spectral,Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --pad:clamp(22px,6vw,140px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);font-family:var(--sans);color:var(--tinta);-webkit-font-smoothing:antialiased;line-height:1.5}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:600}
+p{margin:0}
+a{color:var(--azul);text-decoration:none;border-bottom:1px solid var(--oro)}
+a:hover{color:var(--oro)}
+.wrap{padding-left:var(--pad);padding-right:var(--pad)}
+.kick{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.kick i{display:block;width:26px;height:2px;background:var(--oro)}
+.kick span{font-size:11.5px;letter-spacing:.16em;color:var(--oro);font-weight:600}
+.sec-t{font-size:clamp(26px,3.4vw,38px);color:var(--azul);letter-spacing:-.01em}
+.sec-p{margin-top:12px;font-size:clamp(14px,1.2vw,15.5px);color:var(--gris);max-width:66ch;line-height:1.6}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;height:54px;background:var(--azul-osc);color:#fff}
+.top b{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.14em}
+.top b i{width:9px;height:9px;background:var(--oro)}
+.top span{font-size:11.5px;color:#9DB8D2;letter-spacing:.08em;text-align:right}
+
+.hero{padding-top:clamp(46px,7vw,92px);padding-bottom:clamp(42px,6.5vw,84px);background:var(--azul);color:#fff}
+.hero .kick span{color:#9DB8D2;font-weight:500;letter-spacing:.16em}
+.hero h1{font-size:clamp(33px,5.2vw,62px);line-height:1.1;max-width:940px;letter-spacing:-.015em;text-wrap:pretty}
+.hero p{margin-top:clamp(20px,2.4vw,32px);max-width:62ch;font-size:clamp(15px,1.4vw,18px);line-height:1.62;color:#C9D9E8}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(26px,3vw,40px)}
+.chips span{padding:8px 15px;border:1px solid #3C6288;border-radius:2px;font-size:12.5px;color:#C9D9E8}
+
+.cifras{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--sup);border-bottom:1px solid var(--linea)}
+.cifras div{padding:clamp(24px,3.4vw,46px) clamp(20px,2.8vw,40px);border-right:1px solid var(--linea-cl)}
+.cifras div:last-child{border-right:0}
+.cifras b{display:block;font-family:var(--serif);font-size:clamp(32px,3.6vw,46px);font-weight:600;color:var(--azul);line-height:1}
+.cifras small{display:block;margin-top:11px;font-size:clamp(12px,1.05vw,13.5px);color:var(--gris);line-height:1.4}
+
+.tl{padding-top:clamp(46px,6.6vw,86px);padding-bottom:clamp(44px,6.8vw,90px)}
+#stepper{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:clamp(32px,4.2vw,54px)}
+.step{appearance:none;background:none;border:0;font:inherit;cursor:pointer;padding:4px 14px 0;text-align:center;color:inherit}
+.step .r{display:block;font-size:13px;font-weight:600;color:var(--gris-cl)}
+.step .e{display:block;margin-top:6px;font-size:10px;letter-spacing:.15em;font-weight:600;color:#A6B0BB}
+.step .bar{display:flex;align-items:center;height:34px;margin:10px 0 14px}
+.step .bar i{flex-grow:1;height:2px;background:#D3DCE4}
+.step .bar i.off{background:transparent}
+.step .dot{width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #C3CDD8;flex-shrink:0;transition:all .18s ease}
+.step .t{display:block;font-family:var(--serif);font-size:16.5px;line-height:1.34;font-weight:600;color:var(--gris-cl);transition:color .18s ease}
+.step:hover .t{color:var(--azul)}
+.step[aria-selected="true"] .r{color:var(--azul)}
+.step[aria-selected="true"] .e{color:var(--oro)}
+.step[aria-selected="true"] .t{color:var(--azul)}
+.step[aria-selected="true"] .dot{width:20px;height:20px;background:var(--oro);border-color:var(--oro);box-shadow:0 0 0 7px rgba(184,134,11,.16)}
+.step:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+
+.panel{margin-top:34px;background:var(--sup);border:1px solid var(--linea);border-top:3px solid var(--oro)}
+.panel-h{padding:clamp(24px,3vw,38px) clamp(22px,3.4vw,44px) clamp(22px,2.7vw,34px);border-bottom:1px solid var(--linea-cl)}
+.panel-h .id{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.panel-h .n{font-family:var(--mono);font-size:13px;color:var(--oro);font-weight:500}
+.panel-h h3{font-size:clamp(20px,2.2vw,27px);color:var(--azul)}
+.panel-h p{margin-top:16px;max-width:80ch;font-size:clamp(14px,1.25vw,15.5px);line-height:1.68;color:var(--texto)}
+.nota{margin-top:18px;padding:12px 16px;background:#FBF6E9;border-left:3px solid var(--oro);font-size:13.5px;color:#6B5518;line-height:1.5}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.cols>div{padding:clamp(22px,2.6vw,32px) clamp(22px,2.7vw,34px) clamp(24px,2.9vw,36px);border-right:1px solid var(--linea-cl)}
+.cols>div:last-child{border-right:0}
+.cols h4{margin:0 0 18px;font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--oro)}
+.cols ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px}
+.cols li{display:flex;gap:11px;align-items:flex-start;font-size:13.8px;line-height:1.52;color:var(--texto)}
+.cols li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--azul-med);margin-top:7px;flex-shrink:0}
+
+#acc{display:none;margin-top:28px;flex-direction:column;gap:10px}
+.ac{background:var(--sup);border:1px solid var(--linea-cl);border-left:3px solid var(--linea-cl)}
+.ac[data-open="true"]{border-color:#C6D2DD;border-left-color:var(--oro)}
+.ac-h{width:100%;appearance:none;background:none;border:0;font:inherit;color:inherit;cursor:pointer;display:flex;align-items:flex-start;gap:14px;padding:18px 18px 18px 16px;min-height:56px;text-align:left}
+.ac-h .n{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11.5px;font-weight:500;background:#EEF2F6;color:var(--gris-cl)}
+.ac[data-open="true"] .ac-h .n{background:var(--oro);color:#fff}
+.ac-h .m{flex-grow:1}
+.ac-h .r{font-size:11.5px;font-weight:600;color:var(--gris-cl)}
+.ac[data-open="true"] .ac-h .r{color:var(--oro)}
+.ac-h .t{margin-top:4px;font-family:var(--serif);font-size:16px;line-height:1.3;font-weight:600;color:#47535F}
+.ac[data-open="true"] .ac-h .t{color:var(--azul)}
+.ac-h svg{flex-shrink:0;margin-top:4px;color:#A6B0BB;transition:transform .2s ease}
+.ac[data-open="true"] .ac-h svg{transform:rotate(180deg);color:var(--azul)}
+.ac-b{padding:4px 18px 24px 16px}
+.ac-b>p{font-size:13.8px;line-height:1.62;color:var(--texto)}
+.ac-cols{margin-top:22px;display:flex;flex-direction:column;gap:20px}
+.ac-cols h4{margin:0 0 11px;font-size:10px;letter-spacing:.14em;font-weight:600;color:var(--oro)}
+.ac-cols ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.ac-cols li{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--texto)}
+.ac-cols li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--azul-med);margin-top:7px;flex-shrink:0}
+
+.banda{background:var(--sup);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.pad-v{padding-top:clamp(42px,6.2vw,82px);padding-bottom:clamp(42px,6.2vw,82px)}
+.bars{margin-top:clamp(26px,3.2vw,42px);display:flex;flex-direction:column;gap:16px;max-width:1000px}
+.bar{display:flex;align-items:center;gap:20px}
+.bar .nm{width:230px;text-align:right;font-family:var(--mono);font-size:12.5px;color:var(--texto)}
+.bar .tr{flex-grow:1;height:20px;background:#EFF3F6;position:relative}
+.bar .fl{position:absolute;inset:0 auto 0 0;background:var(--azul-med);border-radius:0 3px 3px 0}
+.bar .vl{width:86px;font-size:13px;font-weight:600;color:var(--gris)}
+
+.tabla{margin-top:clamp(24px,2.9vw,38px);background:var(--sup);border:1px solid var(--linea);overflow-x:auto}
+.tabla table{width:100%;min-width:720px;border-collapse:collapse}
+.tabla th{background:var(--azul);color:#fff;font-size:10.5px;letter-spacing:.13em;font-weight:600;text-align:left;padding:13px 18px}
+.tabla td{padding:13px 18px;border-bottom:1px solid var(--linea-cl);font-size:13.5px;line-height:1.45;color:var(--texto);vertical-align:middle}
+.tabla tr:nth-child(even) td{background:#FAFBFC}
+.tabla td.k{font-family:var(--mono);font-size:12.5px;color:var(--azul);font-weight:500;white-space:nowrap}
+.tabla td.f{font-family:var(--mono);font-size:12.5px;color:var(--gris);white-space:nowrap}
+.pill{display:inline-block;padding:4px 11px;border-radius:2px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.ok{background:#E7F1EC;color:#2E7D5B}
+.pill.esc{background:#FBF3E2;color:#8A6510}
+.pill.can{background:#EEF1F4;color:var(--gris)}
+
+.grid3{margin-top:clamp(26px,3vw,40px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.9vw,26px)}
+.comp{padding:clamp(18px,2vw,26px);background:#F7F9FB;border-top:2px solid var(--azul)}
+.comp b{display:block;font-family:var(--serif);font-size:clamp(17px,1.5vw,19px);font-weight:600;color:var(--azul);margin-bottom:11px}
+.comp span{font-size:13.5px;line-height:1.58;color:#47535F}
+.ent{padding:clamp(18px,1.9vw,26px);background:var(--sup);border:1px solid var(--linea)}
+.ent b{display:block;font-family:var(--mono);font-size:clamp(19px,1.7vw,22px);color:var(--azul);font-weight:500}
+.ent span{display:block;margin-top:9px;font-size:13px;color:var(--gris);line-height:1.5}
+
+.pie{padding-top:clamp(36px,4.6vw,62px);padding-bottom:clamp(42px,5.2vw,70px);background:var(--azul-osc);color:#9DB8D2}
+.pie .in{display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(24px,5vw,60px);flex-wrap:wrap}
+.pie h3{font-size:clamp(18px,1.8vw,21px);color:#fff;margin-bottom:13px}
+.pie p{font-size:13.5px;line-height:1.65;max-width:64ch}
+.pie .rol{text-align:right}
+.pie .rol b{display:block;font-size:11.5px;letter-spacing:.14em;color:var(--oro);font-weight:600;margin-bottom:9px}
+.pie .rol span{font-size:13.5px;line-height:1.7}
+
+.lam{display:block;border:0;margin-top:clamp(24px,3vw,38px)}
+.lam img{width:100%;height:auto;display:block;border:1px solid var(--linea);background:var(--sup)}
+.lam:hover img{border-color:var(--oro)}
+.lam-pie{margin-top:10px;font-size:12px;color:var(--gris)}
+@media (max-width:1080px){
+  #stepper,.panel{display:none}
+  #acc{display:flex}
+  .cifras{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cifras div:nth-child(2){border-right:0}
+  .cifras div:nth-child(-n+2){border-bottom:1px solid var(--linea-cl)}
+  .grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bar .nm{width:150px}
+}
+@media (max-width:640px){
+  .grid3{grid-template-columns:1fr}
+  .bar{flex-wrap:wrap;gap:8px}
+  .bar .nm{width:100%;text-align:left}
+  .bar .vl{width:auto}
+  .pie .rol{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top wrap">
+  <b><i></i>BI CULTURAL</b>
+  <span>BANCO DE LA REPÚBLICA · SUBGERENCIA CULTURAL</span>
+</header>
+
+<section class="hero wrap">
+  <div class="kick"><i></i><span>ABRIL 2019 — OCTUBRE 2025</span></div>
+  <h1>De una tarea sin dueño a la certificación de un proyecto de seis años</h1>
+  <p>La función de pruebas de la Bodega de Datos del proyecto BI Cultural pasó de ser una responsabilidad sin dedicación asignada a ser el mecanismo que certificaba los entregables y soportaba las decisiones de pago frente al proveedor.</p>
+  <div class="chips">
+    <span>Teradata</span><span>Informatica PowerCenter</span><span>Alma · Ex Libris</span><span>SQL</span><span>Mantis · Jira</span><span>XML · API REST</span><span>Power BI</span>
+  </div>
+</section>
+
+<section class="cifras" id="cifras"></section>
+
+
+<section class="banda pad-v wrap">
+  <div class="kick"><i></i><span>PANORAMA</span></div>
+  <h2 class="sec-t">El sistema de un vistazo</h2>
+  <p class="sec-p">Fuentes, pipeline, bodega y cuadro de mando en una sola lámina.</p>
+  <a class="lam" href="laminas/BI_CULTURAL_Panorama_General.png" target="_blank" rel="noopener">
+    <img src="laminas/BI_CULTURAL_Panorama_General.jpg" width="1536" height="1024" loading="lazy"
+         alt="Panorama del sistema BI Cultural: fuentes de datos, pipeline ETL de siete tramos, bodega en Teradata por capas y cuadro de mando con la cobertura de pruebas.">
+  </a>
+  <div class="lam-pie">Abrir la imagen en una pestaña nueva para verla en detalle.</div>
+</section>
+
+<section class="tl wrap">
+  <div class="kick"><i></i><span>TRAYECTORIA</span></div>
+  <h2 class="sec-t">Cinco etapas</h2>
+  <p class="sec-p">Selecciona una etapa para ver sus funciones, su aporte de valor y la documentación que la respalda.</p>
+  <div id="stepper" role="tablist" aria-label="Etapas del proyecto"></div>
+  <div class="panel" id="panel"></div>
+  <div id="acc"></div>
+</section>
+
+<section class="banda pad-v wrap">
+  <div class="kick"><i></i><span>FASE ALMA · 2023—2024</span></div>
+  <h2 class="sec-t">Cobertura de pruebas</h2>
+  <p class="sec-p">166 pruebas sobre 166 tablas en cinco bases de datos. La concentración en la capa de vistas refleja que es la que expone la información al usuario final y la que concentra la validación de reglas de negocio.</p>
+  <div class="bars" id="bars"></div>
+</section>
+
+<section class="pad-v wrap">
+  <div class="kick"><i></i><span>TRAZABILIDAD</span></div>
+  <h2 class="sec-t">Hallazgos gestionados</h2>
+  <p class="sec-p">Cada hallazgo se registró en Jira con clave de incidencia, fecha de creación y fecha de resolución. Su clasificación entre corrección y ajuste determinaba quién asumía el costo.</p>
+  <div class="tabla">
+    <table>
+      <thead><tr><th>CLAVE</th><th>HALLAZGO</th><th>ESTADO</th><th>RESUELTO</th></tr></thead>
+      <tbody id="hall"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="banda pad-v wrap">
+  <div class="kick"><i></i><span>PERFIL</span></div>
+  <h2 class="sec-t">Competencias ejercidas</h2>
+  <div class="grid3" id="comp"></div>
+</section>
+
+<section class="pad-v wrap">
+  <div class="kick"><i></i><span>DICIEMBRE 2024</span></div>
+  <h2 class="sec-t">Cierre del proyecto</h2>
+  <p class="sec-p">El proyecto se cerró con cumplimiento total de sus tres objetivos y de los entregables planeados. El ciclo de pruebas de la fase ALMA fue insumo directo de ese cierre.</p>
+  <div class="grid3" id="ent"></div>
+</section>
+
+<footer class="pie wrap">
+  <div class="in">
+    <div>
+      <h3>Sobre esta línea de tiempo</h3>
+      <p>Elaborada a partir de la documentación del proyecto: informe final, acta de cierre, informes de pruebas de certificación, cronogramas e inventarios de casos de prueba y manuales de operación e instalación.</p>
+    </div>
+    <div class="rol">
+      <b>CERTIFICADOR DE QA</b>
+      <span>Sección de Estrategia y Apoyo Digital<br>Subgerencia Cultural</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ETAPAS=[
+{n:"01",rango:"Abr 2019 — Jun 2021",etiqueta:"ANTECEDENTE",titulo:"Sin función de pruebas formalizada",
+ historia:"La SEAD llevaba dos meses de creada y el proyecto se había planteado un año atrás, ante la necesidad de una bodega de datos que permitiera mayores análisis desde la Subgerencia Cultural. Las pruebas estaban a cargo del coordinador de inteligencia de negocios, sin coordinación de pruebas ni acreditación del equipo en la disciplina.",
+ cols:[
+  {label:"SITUACIÓN",items:["La responsabilidad de pruebas recae en el coordinador de inteligencia de negocios, sin dedicación exclusiva.","No existe una coordinación de pruebas dentro de la estructura del área.","Al ampliar el alcance de Oficina de BI a SEAD, el dimensionamiento del equipo queda por debajo de la necesidad real."]},
+  {label:"LO QUE AVANZÓ EL PROYECTO",items:["Cargue inicial de 1.044.000 registros de autoridades.","Primeros análisis de composición de la colección y reportes NIIF.","Construcción del ETL para circulación y socios desde SIBLAA."]},
+  {label:"DOCUMENTACIÓN DEL PERIODO",items:["Guía de operación del sistema — Colección Bibliográfica (2019).","Informe de seguimiento BI-Cultural (noviembre de 2019).","Logros y retos 2020 y 2021."]}]},
+{n:"02",rango:"Jun 2021 — Jun 2022",etiqueta:"DELEGACIÓN",titulo:"Asunción de la gestión de pruebas",
+ historia:"Se solicita apoyo para dar gestión a las pruebas de la bodega y se habilitan los permisos de conexión a la base de datos donde está alojada. La responsabilidad se delega sobre un rol que hasta entonces no tenía la tarea de pruebas formalmente asignada.",
+ cols:[
+  {label:"FUNCIONES ASUMIDAS",items:["Revisar la documentación del proyecto y de los mantenimientos a lo largo de su ejecución.","Generar los criterios de aceptación y apoyar el diseño de la descripción técnica.","Registrar en Mantis los hallazgos de las pruebas unitarias y funcionales.","Liderar las reuniones con el proveedor para definir si un caso era corrección o ajuste."]},
+  {label:"APORTE DE VALOR",items:["Documentación coherente y actualizada, con seguimiento posible para todo el equipo.","Verificación de que los nuevos mantenimientos cumplieran los requisitos antes de implantarse.","Casos de prueba efectivos para detectar errores antes de producción.","Reducción de costos derivados de la mala clasificación de un error."]},
+  {label:"EVIDENCIA",items:["Inventario de pruebas CQ60136: 31 ítems y 23 casos de prueba definidos.","Cronograma de prueba de humo con entrega en diciembre de 2021.","Cronograma de certificación con archivo .sql y .doc por proceso."]}]},
+{n:"03",rango:"Jun 2022 — Dic 2022",etiqueta:"FORMALIZACIÓN",titulo:"Las pruebas se vuelven instrumento contractual",
+ historia:"El proyecto adopta una mejor documentación para las pruebas de certificación. Estas dejan de ser una verificación técnica interna y pasan a ser el instrumento que define el pago de los excedentes contractuales acordados con el proveedor.",
+ nota:"Restricción registrada en este periodo y no resuelta: el área no contaba con un servidor de pruebas independiente.",
+ cols:[
+  {label:"FUNCIONES",items:["Planear y crear los casos de prueba a partir de los requisitos de usuario de cada mantenimiento.","Generar el informe de pruebas de certificación que define el pago de los excedentes contractuales."]},
+  {label:"APORTE DE VALOR",items:["Detección temprana de defectos, con menos reimplantaciones de cambios.","Cobertura de los requisitos de usuario, que reduce tiempo y recursos de prueba.","Transparencia en la gestión del gasto frente a lo pactado en los criterios de aceptación.","Identificación y gestión de los riesgos de implementación."]},
+  {label:"EVIDENCIA",items:["Informe de pruebas de certificación BI-CULT-24 (noviembre de 2022).","Cronograma de ejecución de pruebas por proceso, con complejidad y fechas.","Matriz de descripción técnica CQ60136."]}]},
+{n:"04",rango:"Ene 2023 — Jun 2023",etiqueta:"CONSOLIDACIÓN",titulo:"Continuidad entre las dos fases",
+ historia:"Semestre de transición entre la fase de AbsysNET y la de Alma: continúa la planeación y ejecución de pruebas sobre los mantenimientos del periodo, y el seguimiento de hallazgos con el proveedor.",
+ 
+ cols:[
+  {label:"FUNCIONES",items:["Continuidad de la planeación, diseño y ejecución de casos de prueba sobre los mantenimientos del periodo.","Documentación de hallazgos y seguimiento a su resolución con el proveedor."]},
+  {label:"APORTE DE VALOR",items:["Alineación formal entre las funciones ejercidas y un perfil técnico reconocido.","Continuidad del aseguramiento de calidad sin interrupción entre las dos fases del proyecto."]},
+  {label:"EVIDENCIA",items:["Cronogramas y casos de prueba de los mantenimientos del periodo.","Documentación de hallazgos y seguimiento con el proveedor."]}]},
+{n:"05",rango:"Jul 2023 — Dic 2024",etiqueta:"CERTIFICACIÓN",titulo:"Cambio de fuente a ALMA y certificación final",
+ historia:"La segunda fase sustituye la fuente de datos: de AbsysNET a Alma de Ex Libris. El cambio obliga a reconstruir la ingesta con procesos automáticos en Java, BTEQ y TPT para consumir y generar XML, revisar layouts y prototipos, y resolver la duplicidad de códigos de barras mediante el campo ITEM_PID.",
+ cols:[
+  {label:"FUNCIONES",items:["Ejecutar y documentar 166 pruebas sobre las bases de datos de prueba de la bodega.","Validar la carga y el poblamiento de autoridades, registros bibliográficos y ejemplares bajo la nueva fuente.","Registrar, clasificar y escalar los hallazgos al proveedor hasta su resolución.","Solicitar la construcción de la malla para automatizar el cargue de incrementales."]},
+  {label:"APORTE DE VALOR",items:["Certificación de la mayoría de los sprints, con alta cobertura sobre la capa de vistas.","Detección temprana de fallas críticas de carga antes del paso a producción.","Trazabilidad completa de los hallazgos como soporte de la relación con el proveedor.","Insumo directo del informe final y del acta de cierre."]},
+  {label:"EVIDENCIA",items:["Informe Final del Proyecto BI Cultural.","Manual de instalación BICULT-151 (20 de noviembre de 2024).","Acta de cierre del proyecto (diciembre de 2024)."]}]},
+{n:"06",rango:"Nov 2024 — Oct 2025",etiqueta:"OPERACIÓN",titulo:"Cambio de fuente de incrementales y operación",
+ historia:"Cerrada la fase de inversión, el cambio de fuente continúa por mantenimientos sucesivos sobre la bodega en producción. BICULT-151 incorpora los registros bibliográficos y los ejemplares desde Alma; BICULT-163 automatiza el cargue diario de incrementales y define cómo opera hoy el sistema: consumo de la API por shells y JAR, división del XML, parametrización en base de datos y ejecución encadenada de mallas.",
+ cols:[
+  {label:"FUNCIONES",items:["Probar y certificar los objetos de cada mantenimiento en el ambiente de pruebas antes del paso a producción.","Verificar los procedimientos almacenados, las vistas de extracción y de transformación y los parámetros creados en cada despliegue.","Validar la secuencia de ejecución de las mallas de parámetros, cargue por API, histórico e incremental."]},
+  {label:"APORTE DE VALOR",items:["Cargue diario de novedades automatizado, sin intervención manual por lote.","Parametrización en base de datos que permite cambiar archivos y prefijos de la fuente sin tocar el código de los flujos.","Documentación de instalación y operación por mantenimiento, con backup y rollback ejecutables desde Jenkins."]},
+  {label:"EVIDENCIA",items:["Manual de instalación y manual de operación BICULT-163 (entrega del 14 de octubre de 2025).","Manual de instalación BICULT-151 (20 de noviembre de 2024)."]}]}];
+
+const CIFRAS=[["166","pruebas ejecutadas en la fase ALMA"],["5","bases de datos de prueba cubiertas"],["9","hallazgos registrados y gestionados"],["6","años de duración del proyecto"]];
+const BD=[["PRU_BR_VIEW",65,"39%"],["PRU_BR_STAGE",31,"19%"],["PRU_BR_DATA",26,"16%"],["PRU_BR_LANDING",25,"15%"],["PRU_GESTOR_VIEW_STAGE",19,"11%"]];
+const HALL=[
+["BICULT-159","El proceso CULTElAu no modifica los campos correspondientes en la tabla destino","Cancelado","11/dic/24"],
+["BICULT-158","Falla el proceso CULT_Cop2","Listo","13/dic/24"],
+["BICULT-157","El proceso CULTCop2 no pobla información en Landing","Listo","16/dic/24"],
+["BICULT-156","El cargue por API para ejemplares no trae registros en el XML resultante","Listo","16/dic/24"],
+["BICULT-155","Limpieza de caracteres UNICODE en el archivo fuente CULTCop2.csv","Listo","13/dic/24"],
+["BICULT-154","El proceso CULT_Edit no carga el campo en la tabla destino","Listo","18/dic/24"],
+["BICULT-153","El proceso CULT_Elir no actualiza los campos en la tabla destino","Escalado","18/dic/24"],
+["BICULT-152","El proceso CULT_ElAu no modifica el estado de los campos","Listo","16/dic/24"],
+["BICULT-150","No poblan datos en la tabla CULT_Anio","Listo","17/dic/24"]];
+const COMP=[
+["Diseño de pruebas","Planeación y construcción de casos de prueba a partir de requisitos de usuario, y definición de criterios de aceptación."],
+["Ejecución","Pruebas unitarias, funcionales, de humo, en malla, incrementales y de certificación sobre procesos ETL y estructuras de bodega."],
+["Gestión de defectos","Seguimiento de hallazgos hasta su resolución verificada: Mantis hasta 2022, Jira desde 2023."],
+["Dominio técnico","SQL sobre Teradata, flujos ETL en Informatica PowerCenter, capas Landing, Stage y Modelo, layouts MARC, API REST para el cargue incremental y consumo en BOE y Power BI."],
+["Documentación","Informes de certificación, inventarios de casos de prueba, cronogramas de ejecución y manuales de operación e instalación."],
+["Gestión de proveedor","Conducción de reuniones para clasificar cada caso como corrección o ajuste, con efecto directo sobre el gasto del proyecto."]];
+const ENT=[["1,4 M","autoridades cargadas desde AbsysNET y Alma"],["1,8 M","registros bibliográficos"],["2,9 M","ejemplares físicos"],["17","reportes BOE de circulación y lectores"],["55","flujos construidos en Informatica"],["100%","de cumplimiento de los objetivos del proyecto"]];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const el=(h)=>{const t=document.createElement("template");t.innerHTML=h.trim();return t.content.firstElementChild};
+let sel=1, abierto=1;
+
+document.getElementById("cifras").innerHTML=CIFRAS.map(([v,t])=>`<div><b>${esc(v)}</b><small>${esc(t)}</small></div>`).join("");
+document.getElementById("bars").innerHTML=BD.map(([n,v,p])=>`<div class="bar"><div class="nm">${esc(n)}</div><div class="tr"><div class="fl" style="width:${Math.round(v/65*100)}%"></div></div><div class="vl">${v} &middot; ${esc(p)}</div></div>`).join("");
+document.getElementById("hall").innerHTML=HALL.map(([k,t,e,f])=>{const c=e==="Listo"?"ok":e==="Escalado"?"esc":"can";return `<tr><td class="k">${esc(k)}</td><td>${esc(t)}</td><td><span class="pill ${c}">${esc(e)}</span></td><td class="f">${esc(f)}</td></tr>`}).join("");
+document.getElementById("comp").innerHTML=COMP.map(([t,d])=>`<div class="comp"><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join("");
+document.getElementById("ent").innerHTML=ENT.map(([c,t])=>`<div class="ent"><b>${esc(c)}</b><span>${esc(t)}</span></div>`).join("");
+
+const colsHTML=(cols,cls)=>cols.map(c=>`<div><h4>${esc(c.label)}</h4><ul>${c.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>`).join("");
+
+const stepper=document.getElementById("stepper");
+stepper.innerHTML=ETAPAS.map((e,i)=>`<button class="step" role="tab" id="tab-${i}" aria-controls="panel" aria-selected="${i===sel}" tabindex="${i===sel?0:-1}"><span class="r">${esc(e.rango)}</span><span class="e">${esc(e.etiqueta)}</span><span class="bar"><i class="${i===0?"off":""}"></i><span class="dot"></span><i class="${i===ETAPAS.length-1?"off":""}"></i></span><span class="t">${esc(e.titulo)}</span></button>`).join("");
+
+function pintaPanel(){
+  const e=ETAPAS[sel];
+  document.getElementById("panel").innerHTML=
+    `<div class="panel-h"><div class="id"><span class="n">${esc(e.n)}</span><h3>${esc(e.titulo)}</h3></div><p>${esc(e.historia)}</p>${e.nota?`<div class="nota">${esc(e.nota)}</div>`:""}</div><div class="cols">${colsHTML(e.cols)}</div>`;
+  [...stepper.children].forEach((b,i)=>{b.setAttribute("aria-selected",i===sel);b.tabIndex=i===sel?0:-1});
+}
+stepper.addEventListener("click",ev=>{const b=ev.target.closest(".step");if(!b)return;sel=[...stepper.children].indexOf(b);pintaPanel()});
+stepper.addEventListener("keydown",ev=>{
+  const k=ev.key; if(k!=="ArrowRight"&&k!=="ArrowLeft"&&k!=="Home"&&k!=="End")return;
+  ev.preventDefault();
+  sel=k==="Home"?0:k==="End"?ETAPAS.length-1:k==="ArrowRight"?(sel+1)%ETAPAS.length:(sel-1+ETAPAS.length)%ETAPAS.length;
+  pintaPanel(); stepper.children[sel].focus();
+});
+pintaPanel();
+
+const acc=document.getElementById("acc");
+function pintaAcc(){
+  acc.innerHTML=ETAPAS.map((e,i)=>{
+    const ab=i===abierto;
+    return `<div class="ac" data-open="${ab}"><button class="ac-h" aria-expanded="${ab}" aria-controls="ab-${i}"><span class="n">${esc(e.n)}</span><span class="m"><span class="r" style="display:block">${esc(e.rango)}</span><span class="t" style="display:block">${esc(e.titulo)}</span></span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5 8 10.5 12 6.5"/></svg></button>${ab?`<div class="ac-b" id="ab-${i}"><p>${esc(e.historia)}</p>${e.nota?`<div class="nota">${esc(e.nota)}</div>`:""}<div class="ac-cols">${colsHTML(e.cols)}</div></div>`:""}</div>`;
+  }).join("");
+}
+acc.addEventListener("click",ev=>{const b=ev.target.closest(".ac-h");if(!b)return;const i=[...acc.children].indexOf(b.parentElement);abierto=abierto===i?-1:i;pintaAcc()});
+pintaAcc();
+</script>
+</body>
+</html>
