@@ -50,7 +50,7 @@ a:hover{color:var(--oro)}
 .cifras small{display:block;margin-top:11px;font-size:clamp(12px,1.05vw,13.5px);color:var(--gris);line-height:1.4}
 
 .tl{padding-top:clamp(46px,6.6vw,86px);padding-bottom:clamp(44px,6.8vw,90px)}
-#stepper{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:clamp(32px,4.2vw,54px)}
+#stepper{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin-top:clamp(32px,4.2vw,54px)}
 .step{appearance:none;background:none;border:0;font:inherit;cursor:pointer;padding:4px 14px 0;text-align:center;color:inherit}
 .step .r{display:block;font-size:13px;font-weight:600;color:var(--gris-cl)}
 .step .e{display:block;margin-top:6px;font-size:10px;letter-spacing:.15em;font-weight:600;color:#A6B0BB}
@@ -170,11 +170,11 @@ a:hover{color:var(--oro)}
 </header>
 
 <section class="hero wrap">
-  <div class="kick"><i></i><span>ABRIL 2019 — OCTUBRE 2025</span></div>
+  <div class="kick"><i></i><span>ABRIL 2019 — AGOSTO 2026</span></div>
   <h1>De una tarea sin dueño a la certificación de un proyecto de seis años</h1>
   <p>La función de pruebas de la Bodega de Datos del proyecto BI Cultural pasó de ser una responsabilidad sin dedicación asignada a ser el mecanismo que certificaba los entregables y soportaba las decisiones de pago frente al proveedor.</p>
   <div class="chips">
-    <span>Teradata</span><span>Informatica PowerCenter</span><span>Alma · Ex Libris</span><span>SQL</span><span>Mantis · Jira</span><span>XML · API REST</span><span>Power BI</span>
+    <span>Teradata</span><span>Informatica PowerCenter</span><span>Alma · Ex Libris</span><span>SQL</span><span>Mantis · Jira</span><span>XML · API REST</span><span>Streaming</span><span>Power BI</span>
   </div>
 </section>
 
@@ -194,7 +194,7 @@ a:hover{color:var(--oro)}
 
 <section class="tl wrap">
   <div class="kick"><i></i><span>TRAYECTORIA</span></div>
-  <h2 class="sec-t">Seis etapas</h2>
+  <h2 class="sec-t">Siete etapas</h2>
   <p class="sec-p">Selecciona una etapa para ver sus funciones, su aporte de valor y la documentación que la respalda.</p>
   <div id="stepper" role="tablist" aria-label="Etapas del proyecto"></div>
   <div class="panel" id="panel"></div>
@@ -275,7 +275,7 @@ const ETAPAS=[
   {label:"APORTE DE VALOR",items:["Alineación formal entre las funciones ejercidas y un perfil técnico reconocido.","Continuidad del aseguramiento de calidad sin interrupción entre las dos fases del proyecto."]},
   {label:"EVIDENCIA",items:["Cronogramas y casos de prueba de los mantenimientos del periodo.","Documentación de hallazgos y seguimiento con el proveedor."]}]},
 {n:"05",rango:"Jul 2023 — Dic 2024",etiqueta:"CERTIFICACIÓN",titulo:"Cambio de fuente a ALMA y certificación final",
- historia:"La segunda fase sustituye la fuente de datos: de AbsysNET a Alma de Ex Libris. El cambio obliga a reconstruir la ingesta con procesos automáticos en Java, BTEQ y TPT para consumir y generar XML, revisar layouts y prototipos, y resolver la duplicidad de códigos de barras mediante el campo ITEM_PID.",
+ historia:"La segunda fase sustituye la fuente de datos: de AbsysNET a Alma de Ex Libris, en diciembre de 2022. La extracción pasa de texto plano BRS a MARC21 con salida en XML, y obliga a reconstruir la ingesta en Java, BTEQ y TPT. La memoria del servidor de Informatica no permitía procesar los archivos XML completos, así que el histórico se pasó a consumir por streaming; la duplicidad de códigos de barras se resolvió con el campo ITEM_PID.",
  cols:[
   {label:"FUNCIONES",items:["Ejecutar y documentar 166 pruebas sobre las bases de datos de prueba de la bodega.","Validar la carga y el poblamiento de autoridades, registros bibliográficos y ejemplares bajo la nueva fuente.","Registrar, clasificar y escalar los hallazgos al proveedor hasta su resolución.","Solicitar la construcción de la malla para automatizar el cargue de incrementales."]},
   {label:"APORTE DE VALOR",items:["Certificación de la mayoría de los sprints, con alta cobertura sobre la capa de vistas.","Detección temprana de fallas críticas de carga antes del paso a producción.","Trazabilidad completa de los hallazgos como soporte de la relación con el proveedor.","Insumo directo del informe final y del acta de cierre."]},
@@ -285,7 +285,13 @@ const ETAPAS=[
  cols:[
   {label:"FUNCIONES",items:["Probar y certificar los objetos de cada mantenimiento en el ambiente de pruebas antes del paso a producción.","Verificar los procedimientos almacenados, las vistas de extracción y de transformación y los parámetros creados en cada despliegue.","Validar la secuencia de ejecución de las mallas de parámetros, cargue por API, histórico e incremental."]},
   {label:"APORTE DE VALOR",items:["Cargue diario de novedades automatizado, sin intervención manual por lote.","Parametrización en base de datos que permite cambiar archivos y prefijos de la fuente sin tocar el código de los flujos.","Documentación de instalación y operación por mantenimiento, con backup y rollback ejecutables desde Jenkins."]},
-  {label:"EVIDENCIA",items:["Manual de instalación y manual de operación BICULT-163 (entrega del 14 de octubre de 2025).","Manual de instalación BICULT-151 (20 de noviembre de 2024)."]}]}];
+  {label:"EVIDENCIA",items:["Manual de instalación y manual de operación BICULT-163 (entrega del 14 de octubre de 2025).","Manual de instalación BICULT-151 (20 de noviembre de 2024)."]}]},
+{n:"07",rango:"Ene 2026 — Ago 2026",etiqueta:"INTEGRACIÓN",titulo:"Integración de BI-CULT 62, 63 y 64",
+ historia:"A finales de junio de 2026 las tres iniciativas quedaron integradas y en funcionamiento en el entorno de pruebas. En esa etapa se identificaron dos hallazgos: uno bloqueante sobre la calidad de los valores del ejemplar, que interviene directamente en el reporte NIIF, y otro sobre permisos de firewall en producción para el cargue incremental.",
+ cols:[
+  {label:"FUNCIONES",items:["Probar la integración de las tres iniciativas en el entorno de pruebas.","Identificar, clasificar y documentar los hallazgos encontrados.","Especificar el requerimiento de parametrización que recibirá el proveedor entrante."]},
+  {label:"APORTE DE VALOR",items:["Detección del hallazgo bloqueante antes del paso a producción: sin las severidades ni las transformaciones definidas, el proceso no pasa de Stage y no carga ningún registro.","Requerimiento especificado con campos de entrada y salida, formatos, orígenes y los seis casos de transformación con su distribución real."]},
+  {label:"EVIDENCIA",items:["Documento de mantenimiento BI-CULTURAL, 26 de agosto de 2026.","Registros en el modelo: 1.540.836 autoridades, 1.158.085 registros bibliográficos y 2.906.609 ejemplares."]}]}];
 
 const CIFRAS=[["166","pruebas ejecutadas en la fase ALMA"],["5","bases de datos de prueba cubiertas"],["9","hallazgos registrados y gestionados"],["6","años de duración del proyecto"]];
 const BD=[["PRU_BR_VIEW",65,"39%"],["PRU_BR_STAGE",31,"19%"],["PRU_BR_DATA",26,"16%"],["PRU_BR_LANDING",25,"15%"],["PRU_GESTOR_VIEW_STAGE",19,"11%"]];
